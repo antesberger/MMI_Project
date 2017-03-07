@@ -22,7 +22,15 @@
       <a-assets>
 
         <script id="tile" type="text/x-nunjucks-template">
-              <a-box shader="flat" color="white" position="0 0 0" rotation="0 0 0" depth="0.7" height="0.7" width="0.7" metalness="0.1" material="fog: false"></a-box>
+              <!-- <a-box shader="flat" color="white" position="0 0 0" rotation="0 0 0" depth="0.7" height="0.7" width="0.7" metalness="0.1" material="fog: false"></a-box> -->
+
+              <a-entity template="src: templates/components/tile.template; type: handlebars"
+                        data-position="1 1.5 -2"
+                        data-scale="0.3 0.3 0.3"
+                        >        
+              </a-entity>
+
+        </script>
         </script>
 
         <!-- <a-asset-item id="myPlyModel" src="assets/boxBackground.ply"></a-asset-item> -->
