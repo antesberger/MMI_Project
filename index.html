@@ -1,132 +1,127 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello, World! - A-Frame</title>
-    <meta name="description" content="Hello, World! - A-Frame">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>Hello, World! - A-Frame</title>
+  <meta name="description" content="Hello, World! - A-Frame">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
 
-    <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/aframe-look-at-component/master/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/aframe-template-component/master/dist/aframe-template-component.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-look-at-component/master/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-template-component/master/dist/aframe-template-component.min.js"></script>
 
-    <script src="js/aframe-extras.js"></script>
-    <script src="js/aframe-particle-system-component.min.js"></script>
-  </head>
-  <body>
+  <script src="js/aframe-extras.js"></script>
+  <script src="js/aframe-particle-system-component.min.js"></script>
+</head>
+<body>
 
-    <a-scene fog="type: linear; color: #000000; far: 20; near: 0" stats >
-      <a-assets>
-    
-        <script id="tile" type="text/x-nunjucks-template">
-              <!-- <a-box shader="flat" color="white" position="0 0 0" rotation="0 0 0" depth="0.7" height="0.7" width="0.7" metalness="0.1" material="fog: false"></a-box> -->
+  <a-scene fog="type: linear; color: #000000; far: 20; near: 0" stats >
+    <a-assets>
 
-              <a-entity template="src: templates/components/tile.template; type: handlebars"
-                        data-position="1 1.5 -2"
-                        data-scale="0.3 0.3 0.3"
-                        >        
-              </a-entity>
+      <script id="targetBox" type="text/x-nunjucks-template">
+        <a-entity template="src: templates/components/targetBox.template; type: handlebars"
+                  data-position="1 1.5 -2"
+                  data-scale="0.3 0.3 0.3"
+        ></a-entity>
+      </script>
 
-        </script>
-        </script>
+      <script id="room" type="text/x-nunjucks-template">
+        <a-plane
+          width="20"
+          height="20"
+          position="0 10 10"
+          rotation="0 180 0"
+          >
+        </a-plane>
 
-        <!-- <a-asset-item id="myPlyModel" src="assets/br_raum.ply"></a-asset-item> -->
-      </a-assets>
+        <a-plane
+          width="20"
+          height="20"
+          position="0 10 0"
+          rotation="90 0 0"
+          >
+        </a-plane>
 
-      <!-- Kamera -->
-      <a-entity position="0 1 1">
-       <a-entity camera look-controls wasd-controls>
-         <a-entity position="0 0 -3"
-                   geometry="primitive: ring; radiusOuter: 0.06;
-                             radiusInner: 0.03;"
-                   material="color: cyan; shader: flat"
-                   cursor="maxDistance: 50; fuse: true">
-           <a-animation begin="click" easing="ease-in" attribute="scale"
-                fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-           <a-animation begin="fusing" easing="ease-in" attribute="scale"
-                fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
-         </a-entity>
-       </a-entity>
+        <a-plane
+          width="20"
+          height="20"
+          position="0 10 -10"
+          rotation="0 0 0"
+          >
+        </a-plane>
+
+        <a-plane
+          width="20"
+          height="20"
+          position="10 10 0"
+          rotation="0 270 0"
+          >
+        </a-plane>
+
+        <a-plane
+          width="20"
+          height="20"
+          position="-10 10 0"
+          rotation="0 90 0"
+          >
+        </a-plane>
+      </script>
+
+      <!-- <a-asset-item id="myPlyModel" src="assets/br_raum.ply"></a-asset-item> -->
+    </a-assets>
+
+    <!-- Kamera -->
+    <a-entity position="0 1 1">
+     <a-entity camera look-controls wasd-controls>
+       <a-entity position="0 0 -3"
+       geometry="primitive: ring; radiusOuter: 0.06;
+       radiusInner: 0.03;"
+       material="color: cyan; shader: flat"
+       cursor="maxDistance: 50; fuse: true">
+       <a-animation begin="click" easing="ease-in" attribute="scale"
+       fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+       <a-animation begin="fusing" easing="ease-in" attribute="scale"
+       fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
      </a-entity>
+    </a-entity>
+    </a-entity>
 
-      <!-- <a-entity light="color: #e8fffb; intensity: 1.5" position="-1 10 0"></a-entity> -->
+    <!-- <a-entity light="color: #e8fffb; intensity: 1.5" position="-1 10 0"></a-entity> -->
 
-      
-      <!-- Basic Room Geometry-->
-      <!-- <a-entity ply-model="src: #myPlyModel" rotation="-90 0 0" scale="0.2 0.2 0.2"></a-entity> -->
-      <a-plane
-        width="20"
-        height="20"
-        position="0 10 10"
-        rotation="0 180 0"
-        >
-      </a-plane>
+    <!--Room Geometry-->
+    <a-entity template="src: #room"  ></a-entity>
 
-      <a-plane
-        width="20"
-        height="20"
-        position="0 10 0"
-        rotation="90 0 0"
-        >
-      </a-plane>
+    <!-- Ground -->
+    <a-grid material="src: url(img/fabric.jpg)" position="0 -0.88 0"></a-grid>
 
-      <a-plane
-        width="20"
-        height="20"
-        position="0 10 -10"
-        rotation="0 0 0"
-        >
-      </a-plane>
+    <!-- Sky -->
+    <a-sky color="#000000"></a-sky>
 
-      <a-plane
-        width="20"
-        height="20"
-        position="10 10 0"
-        rotation="0 270 0"
-        >
-      </a-plane>
+    <a-entity template="src: #targetBox"  ></a-entity>
+  </a-scene>
+</body>
+<script>
 
-      <a-plane
-        width="20"
-        height="20"
-        position="-10 10 0"
-        rotation="0 90 0"
-        >
-      </a-plane>
+  //hover-listener
+  AFRAME.registerComponent('hover-listener', {
+    init: function () {
+      this.el.addEventListener('raycaster-intersected', function(evt) {
+        if (this.hoveron !== true) {
+          this.emit('hoveron');
+          this.hoveron = true;
+          //timer stop
+        }
+      }, true);
+      this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
+        this.emit('hoveroff');
+        this.hoveron = false;
+      }, true);
+    }
+  });
 
-
-      <!-- Ground -->
-      <a-grid material="src: url(img/fabric.jpg)" position="0 -0.88 0"></a-grid>
-
-      <!-- Sky -->
-      <a-sky color="#000000"></a-sky>
-
-      <a-entity template="src: #tile"  ></a-entity>
-    </a-scene>
-  </body>
-  <script>
-
-    //hover-listener
-    AFRAME.registerComponent('hover-listener', {
-      init: function () {
-        this.el.addEventListener('raycaster-intersected', function(evt) {
-          if (this.hoveron !== true) {
-            this.emit('hoveron');
-            this.hoveron = true;
-            console.log("on");
-          }
-        }, true);
-        this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
-          this.emit('hoveroff');
-          this.hoveron = false;
-        }, true);
-      }
-    });
-
-
-  </script>
+</script>
 
 </html>
