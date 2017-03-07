@@ -1,5 +1,5 @@
 <!-- Tile template. -->
-<a-collada-model src="assets/tiles/{{ number }}.dae"
+<a-collada-model src="assets/tiles/1.dae"
     rotation="0 0 0"
     position="{{ position }}"
     scale="{{ scale }}"
