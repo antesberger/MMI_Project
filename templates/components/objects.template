@@ -1,0 +1,14 @@
+<!-- Object template. -->
+<a-box shader="flat"
+    color="white"
+    rotation="0 0 0"
+    position="{{ position }}"
+    depth="0.7"
+    height="0.7"
+    width="0.7"
+    metalness="0.1"
+    material="fog: false"
+    scale="{{ scale }}"
+    look-at="[camera]"
+    >
+</a-box>
