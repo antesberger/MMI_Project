@@ -1,0 +1,15 @@
+<!-- Tile template. -->
+<a-box shader="flat" 
+	color="white" 
+	position="{{ position }}" 
+	scale="{{ scale }}"
+	rotation="0 0 0" 
+	depth="0.7" 
+	height="0.7" 
+	width="0.7" 
+	metalness="0.1" 
+	material="fog: false"
+	hover-listener>
+	<a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="hoveron"></a-animation>
+    <a-animation attribute="scale" dur="300"  from="0.6 0.6 0.6" to="0.3 0.3 0.3" begin="hoveroff"></a-animation>
+</a-box>
