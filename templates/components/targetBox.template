@@ -1,5 +1,6 @@
-<!-- Tile template. -->
-<a-box shader="flat" 
+<!-- targetBox template. -->
+<a-box id="target"
+	shader="flat" 
 	color="white" 
 	position="{{ position }}" 
 	scale="{{ scale }}"
