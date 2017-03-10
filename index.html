@@ -22,22 +22,26 @@
   <a-scene fog="type: linear; color: #000000; far: 30; near: 0" stats >
     <a-assets>
 
+      <video id="rec" autoplay loop="true" src="assets/video/360test.mp4" playsinline>
+
       <script id="targetBox" type="text/x-nunjucks-template">
         <a-entity template="src: templates/components/targetBox.template; type: handlebars"
-                  data-position="5 0 -3"
-                  data-scale="0.3 0.3 0.3"
+                  data-position="0 2.5 3"
+                  data-scale="0.5 0.5 0.5"
         ></a-entity>
       </script>
 
       <script id="room" type="text/x-nunjucks-template">
-        <a-entity template="src: templates/components/room.template; type: handlebars"></a-entity>
+        <a-entity template="src: templates/components/sphere.template; type: handlebars"
+                  data-material="src: #rec"
+        ></a-entity>
       </script>
 
       <!-- <a-asset-item id="myPlyModel" src="assets/br_raum.ply"></a-asset-item> -->
     </a-assets>
 
     <!-- Kamera -->
-    <a-entity position="0 1.6 0">
+    <a-entity position="0 2.5 0">
       <a-entity id="camera" camera look-controls wasd-controls>
         <a-cursor radius-outer="0.03" radius-inner="0.02" position="0 0 -0.5" material="color: cyan; shader: flat" max-distance="2">
           <a-animation begin="cursor-hovering" easing="ease-in" attribute="color" fill="forwards" from="cyan" to="#7ED321" dur="350"></a-animation>
@@ -101,6 +105,7 @@
         if (this.hoveron !== true) {
           this.emit('hoveron');
           this.hoveron = true;
+          console.log('on');
           //timer stop
         }
       }, true);

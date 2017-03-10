@@ -1,0 +1,29 @@
+<!-- sphere template. -->
+<a-entity 	id="sphere" 
+			geometry="	primitive: sphere; 
+						radius: 10; 
+						phi-length: 180" 
+			depth="2" 
+			rotation="0 180 0" 
+			position="0 2 0" 
+			material="	src: #rec;
+						side: double"
+			hover-listener>
+			<a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="hoveron"></a-animation>
+			<a-animation attribute="scale" dur="300"  from="1 1 1" to="0.3 0.3 0.3" begin="hoveroff"></a-animation>
+</a-entity>
+
+<a-entity 	id="sphere2" 
+			geometry="	primitive: sphere; 
+						radius: 10; phi-length: 180" 
+			depth="2"
+			position="0 2 0" 
+			material="side: double" 
+			scale="1 1 2" >
+</a-entity>
+
+<a-plane 	width="20" 
+			height="25" 
+			position="0 0 10" 
+			rotation="0 180 0">
+</a-plane>
