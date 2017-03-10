@@ -9,8 +9,6 @@
 			material="	src: #rec;
 						side: double"
 			hover-listener>
-			<a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="hoveron"></a-animation>
-			<a-animation attribute="scale" dur="300"  from="1 1 1" to="0.3 0.3 0.3" begin="hoveroff"></a-animation>
 </a-entity>
 
 <a-entity 	id="sphere2" 
