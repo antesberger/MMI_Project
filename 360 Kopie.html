@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello, World! - A-Frame</title>
+  <meta name="description" content="Hello, World! - A-Frame">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-text-component/master/dist/aframe-text-component.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-look-at-component/master/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-template-component/master/dist/aframe-template-component.min.js"></script>
+
+  <script src="js/aframe-extras.js"></script>
+  <script src="js/aframe-particle-system-component.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-video-shader/master/dist/aframe-vid-shader.min.js"></script>   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+  <a-scene fog="type: linear; color: #000000; far: 30; near: 0" stats >
+    <a-assets>
+
+      <!-- <video id="rec" autoplay="false" loop="true" src="assets/video/360test.mp4" playsinline> -->
+      <video id="bbb" src="assets/video/bbb.mp4" loop playsinline></video>
+
+      <script id="targetBox" type="text/x-nunjucks-template">
+        <a-entity template="src: templates/components/targetBox.template; type: handlebars"
+                  data-position="0 2.5 3"
+                  data-scale="0.5 0.5 0.5"
+        ></a-entity>
+      </script>
+
+      <script id="room" type="text/x-nunjucks-template">
+        <a-entity template="src: templates/components/sphere.template; type: handlebars"
+                  data-material="src: #rec"
+        ></a-entity>
+      </script>
+
+    </a-assets>
+
+    <!-- Kamera -->
+    <a-entity position="0 2.5 0">
+      <a-entity id="camera" camera look-controls wasd-controls>
+        <a-cursor radius-outer="0.03" radius-inner="0.02" position="0 0 -0.5" material="color: cyan; shader: flat" max-distance="2">
+          <a-animation begin="cursor-hovering" easing="ease-in" attribute="color" fill="forwards" from="cyan" to="#7ED321" dur="350"></a-animation>
+        </a-cursor>
+      </a-entity>
+    </a-entity>
+
+    <!-- <a-entity light="color: #e8fffb; intensity: 1.5" position="-1 10 0"></a-entity> -->
+   <a-entity id="video" geometry="primitive:box;width:4;height:2.15;depth:2;" rotation="30 30 0" position="0 2 -4" material="shader:video;src:#bbb;"></a-entity>
+
+    <!--Room Geometry-->
+    <a-entity template="src: #room"  ></a-entity>
+
+    <!-- Ground -->
+    <a-grid material="src: url(img/fabric.jpg)" position="0 0 0"></a-grid>
+
+    <!-- computer position 180 degree to camera -->
+    <a-entity template="src: #targetBox"></a-entity>
+  </a-scene>
+</body>
+<script>
+  // function computeAngle(x1,y1,z1,x2,y2,z2) {
+  //   //(a°b): (-1)*tPosition.z;
+  //   //|a|*|b|: Math.sqrt(Math.pow(tPosition.x, 2) + Math.pow(tPosition.y, 2) + Math.pow(tPosition.z, 2);
+    
+  //   //TODO
+  //   var angle = Math.acos((x1*x2)+(y1*y2)+(z1*z2)/
+  //               ((Math.sqrt(Math.pow(x1, 2) + Math.pow(y1, 2) + (Math.pow(z1, 2))))*
+  //               (Math.sqrt(Math.pow(x2, 2) + Math.pow(y2, 2) + Math.pow(z2, 2)))))*(180 / Math.PI);
+
+  //   console.log(angle);
+
+  // }
+
+  AFRAME.registerComponent('hover-listener', {
+    init: function () {
+
+      /*var xinit = 0;
+      var zinit = -1;
+      var xnew = (xinit*Math.cos(90))-(zinit*Math.sin(90));
+      var znew = (xinit*Math.sin(90))+(zinit*Math.cos(90));
+      console.log($('#target').attr('position'));
+      $('#target').attr('position', xnew + ',2,5,' + znew);
+      console.log($('#target').attr('position'));*/
+
+      // //compute initial vector angle to target
+      // var tPosition = $('#target').attr('position');
+      // var initialAngle = computeAngle(0,0,-1,tPosition.x,tPosition.y,tPosition.z);
+      
+      // //current camera rotation
+      // var cRotation =  null;
+      // var angle;
+      
+      // //watch for changes in camera rotation
+      // setInterval(function() {
+      //   var test =  $('#camera').attr('rotation');
+
+      //   if ( JSON.stringify(test) !== '{"x":0,"y":0,"z":0}' && 
+      //        JSON.stringify(test) !== JSON.stringify(cRotation)) {
+      //     cRotation = test;
+      //     console.log('Variable changed.', test);
+
+      //     //berechne winkel mit neuer rotation
+      //     computeAngle(cRotation.x,cRotation.y,cRotation.z,tPosition.x,tPosition.y,tPosition.z);
+      //     //TODO (initialAngle * 100) / newAngle
+      //     //-> color/sound volume adjustment
+      //   }
+      // }, 10);
+
+      $('#rec')[0].pause();
+      console.log($('#target').attr('position'));
+      this.el.addEventListener('raycaster-intersected', function(evt) {
+        if (this.hoveron !== true) {
+          this.emit('hoveron');
+          this.hoveron = true;
+          //$('#rec')[0].play();
+          console.log('on');
+        }
+      }, true);
+      this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
+        this.emit('hoveroff');
+        this.hoveron = false;
+      }, true);
+    }
+  });
+</script>
+
+</html>

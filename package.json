@@ -9,6 +9,7 @@
     "ghpages": "ghpages"
   },
   "devDependencies": {
+    "aframe-video-shader": "^0.1.8",
     "budo": "^7.0.0",
     "ghpages": "0.0.3"
   },
