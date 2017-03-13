@@ -21,7 +21,7 @@
 
     <!-- assets -->
     <a-assets>
-      <video muted id="video" src="assets/video/360test.mp4" playsinline></video>
+      <video muted id="video" src="assets/video/360test.mp4" playsinline preload="auto"></video>
 
       <!-- $("#dog")[0].volume = 0.1 -->
       <audio id="dog" loop="true" src="assets/sounds/dog.mp3"></audio>
@@ -45,7 +45,7 @@
         </a-cursor>
       </a-entity>
     </a-entity>
-    
+
     <!-- light -->
     <a-entity light="color:#fff;intensity:1.5;type:ambient;"></a-entity>
 
@@ -76,14 +76,28 @@
 
     AFRAME.registerComponent('hover-listener', {
       init: function () {
+
+        //video starts after 15s
+        setTimeout(function(){
+          var videoEntity = document.querySelector('#video');
+          videoEntity.play();
+        }, 15000);
+
         //option 1: get video to run smoothly in pinned version and use extra sound trigger
         //option 2: get videos own sound to work and build everything right into that
 
         $('#video').on('play', function (e) {
-        //   //set muted 
+        //   //set muted
         //   //$("video").prop('autoplay', false);
             $("video")[0].muted = false;
         //   //$("video").prop('audioTracks')[0].enabled = false;
+
+          //TODO add interval for volume
+          var volumeCounter = 0;
+          setInterval(function(){
+            volumeCounter++;
+            console.log('Volume: ' + volumeCounter);
+          }, 300);
         });
 
         this.el.addEventListener('raycaster-intersected', function(evt) {
@@ -106,4 +120,3 @@
 
 </body>
 </html>
-
