@@ -47,11 +47,11 @@
     </a-entity>
     
     <!-- light -->
-    <a-entity light="color:#BBB;intensity:4;type:ambient;"></a-entity>
+    <a-entity light="color:#fff;intensity:1.5;type:ambient;"></a-entity>
 
     <!--Room Geometry-->
     <!-- <a-entity template="src: #room"></a-entity> -->
-    <a-videosphere id="test" src="#video" material="shader: standard;" radius="20"></a-videosphere>
+    <a-videosphere id="test" src="#video" material="shader: standard; fog: false;" radius="25"></a-videosphere>
 
     <!-- play sound: $('#sound')[0].components.sound.playSound() -->
     <a-entity id="sound" sound="src: #dog"></a-entity>
@@ -80,7 +80,6 @@
         //option 2: get videos own sound to work and build everything right into that
 
         $('#video').on('play', function (e) {
-          console.log('test');
         //   //set muted 
         //   //$("video").prop('autoplay', false);
             $("video")[0].muted = false;
