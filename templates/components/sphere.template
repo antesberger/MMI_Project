@@ -1,24 +1,19 @@
-<a-entity 
-	id="videoSphere" 
-	geometry="
-		primitive: sphere; 
-		radius: 10; 
-		phi-length: 180" 
-	rotation="0 180 0" 
-	position="0 2 0" 
-	material="
-		shader:video;
-		src: #video;
-		side: double"
-	>
-</a-entity>
+<a-videosphere 
+	id="test" 
+	src="#video"
+	material="shader: standard; fog: false;"
+	geometry="primitive: sphere; radius: 10; phiLength: 180; segmentsHeight: 20; segmentsWidth: 64"
+	radius="10";
+	rotation="0 180 0"
+	position="0 0 0">
+</a-videosphere>
 
 <a-entity 
 	geometry="
 		primitive: sphere; 
 		radius: 10; 
 		phi-length: 180" 
-	position="0 2 0" 
+	position="0 0 0" 
 	material="side: double" 
 	scale="1 1 2">
 </a-entity>

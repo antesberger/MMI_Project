@@ -47,11 +47,11 @@
     </a-entity>
 
     <!-- light -->
-    <a-entity light="color:#fff;intensity:1.5;type:ambient;"></a-entity>
+    <!-- <a-entity light="color:#fff;intensity:1.5;type:ambient;"></a-entity> -->
 
     <!--Room Geometry-->
     <!-- <a-entity template="src: #room"></a-entity> -->
-    <a-videosphere id="test" src="#video" material="shader: standard; fog: false;" radius="25"></a-videosphere>
+    <a-videosphere id="test" src="#video" material="shader: standard; fog: false;" radius="25" rotation="0 -90 0"></a-videosphere>
 
     <!-- play sound: $('#sound')[0].components.sound.playSound() -->
     <a-entity id="sound" sound="src: #dog"></a-entity>
@@ -81,24 +81,32 @@
         setTimeout(function(){
           var videoEntity = document.querySelector('#video');
           videoEntity.play();
-        }, 15000);
 
-        //option 1: get video to run smoothly in pinned version and use extra sound trigger
-        //option 2: get videos own sound to work and build everything right into that
+          $("video")[0].muted = false;
 
-        $('#video').on('play', function (e) {
-        //   //set muted
-        //   //$("video").prop('autoplay', false);
-            $("video")[0].muted = false;
-        //   //$("video").prop('audioTracks')[0].enabled = false;
+          var oldY = 0;
 
-          //TODO add interval for volume
-          var volumeCounter = 0;
           setInterval(function(){
-            volumeCounter++;
-            console.log('Volume: ' + volumeCounter);
+            var camera = $('#camera').attr('rotation');
+            var x = camera.x;
+            var newY = camera.y;
+            var volume = Math.floor(($('#video')[0].currentTime)/9);
+            var direction;
+
+            if (newY > oldY) {
+              direction = "left";
+            } else if (newY < oldY) {
+              direction = "right";
+            } else {
+              direction = "same";
+            }
+
+            oldY = newY;
+
+            console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
           }, 300);
-        });
+
+        }, 1500);
 
         this.el.addEventListener('raycaster-intersected', function(evt) {
           if (this.hoveron !== true) {
