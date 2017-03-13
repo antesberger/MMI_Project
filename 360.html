@@ -7,7 +7,7 @@
   <!-- <script src="js/build.js"></script> -->
 
   <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-  <script src="https://rawgit.com/mayognaise/aframe-video-shader/master/dist/aframe-vid-shader.min.js"></script>
+  <!-- <script src="https://rawgit.com/mayognaise/aframe-video-shader/master/dist/aframe-vid-shader.min.js"></script> -->
   <script src="js/aframe-extras.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
@@ -22,6 +22,8 @@
     <!-- assets -->
     <a-assets>
       <video muted id="video" src="assets/video/360test.mp4" playsinline></video>
+
+      <!-- $("#dog")[0].volume = 0.1 -->
       <audio id="dog" loop="true" src="assets/sounds/dog.mp3"></audio>
 
       <script id="targetBox" type="text/x-nunjucks-template">
@@ -43,9 +45,13 @@
         </a-cursor>
       </a-entity>
     </a-entity>
+    
+    <!-- light -->
+    <a-entity light="color:#BBB;intensity:4;type:ambient;"></a-entity>
 
     <!--Room Geometry-->
-    <a-entity template="src: #room"></a-entity>
+    <!-- <a-entity template="src: #room"></a-entity> -->
+    <a-videosphere id="test" src="#video" material="shader: standard;" radius="20"></a-videosphere>
 
     <!-- play sound: $('#sound')[0].components.sound.playSound() -->
     <a-entity id="sound" sound="src: #dog"></a-entity>
@@ -73,11 +79,12 @@
         //option 1: get video to run smoothly in pinned version and use extra sound trigger
         //option 2: get videos own sound to work and build everything right into that
 
-        $('video').on('play', function (e) {
-          //set muted 
-          //$("video").prop('autoplay', false);
-          $('#videoSphere')[0].components.material.data.muted = true;
-          //$("video").prop('audioTracks')[0].enabled = false;
+        $('#video').on('play', function (e) {
+          console.log('test');
+        //   //set muted 
+        //   //$("video").prop('autoplay', false);
+            $("video")[0].muted = false;
+        //   //$("video").prop('audioTracks')[0].enabled = false;
         });
 
         this.el.addEventListener('raycaster-intersected', function(evt) {
