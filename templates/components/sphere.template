@@ -1,27 +1,41 @@
-<!-- sphere template. -->
-<a-entity 	id="sphere" 
-			geometry="	primitive: sphere; 
-						radius: 10; 
-						phi-length: 180" 
-			depth="2" 
-			rotation="0 180 0" 
-			position="0 2 0" 
-			material="	src: #rec;
-						side: double"
-			hover-listener>
+<a-entity 
+	id="videoSphere" 
+	geometry="
+		primitive: sphere; 
+		radius: 10; 
+		phi-length: 180" 
+	rotation="0 180 0" 
+	position="0 2 0" 
+	material="
+		shader:video;
+		src: #video;
+		side: double"
+	>
 </a-entity>
 
-<a-entity 	id="sphere2" 
-			geometry="	primitive: sphere; 
-						radius: 10; phi-length: 180" 
-			depth="2"
-			position="0 2 0" 
-			material="side: double" 
-			scale="1 1 2" >
+<a-entity 
+	geometry="
+		primitive: sphere; 
+		radius: 10; 
+		phi-length: 180" 
+	position="0 2 0" 
+	material="side: double" 
+	scale="1 1 2">
 </a-entity>
 
-<a-plane 	width="20" 
-			height="25" 
-			position="0 0 10" 
-			rotation="0 180 0">
+<a-plane 
+	width="20" 
+	height="25" 
+	position="0 0 10" 
+	rotation="0 180 0">
 </a-plane>
+
+<!-- Ground -->
+<a-grid 
+	material="
+		src: url(img/fabric.jpg); 
+		color: #909090; 
+		roughness: 1; 
+		metalness: 0" 
+	position="0 0 0">
+</a-grid>
