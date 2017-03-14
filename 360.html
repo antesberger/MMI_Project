@@ -89,7 +89,7 @@
           var oldY = 0;
 
           //create targetObject 180 degree behind camera focus point
-          var alpha = (90 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
+          var alpha = (180 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
           var x = Math.sin(alpha) * (-3);
           var z = Math.cos(alpha) * (-3);
           $('#target').attr('position', x + " 2.5 " + z);
