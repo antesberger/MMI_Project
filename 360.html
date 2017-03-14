@@ -76,6 +76,8 @@
 
     AFRAME.registerComponent('hover-listener', {
       init: function () {
+        // a = x:0 y:-1
+        // 180 + camera.rotation.y
 
         //video starts after 15s
         setTimeout(function(){
@@ -85,6 +87,12 @@
           $("video")[0].muted = false;
 
           var oldY = 0;
+
+          //create targetObject 180 degree behind camera focus point
+          var alpha = (90 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
+          var x = Math.sin(alpha) * (-3);
+          var z = Math.cos(alpha) * (-3);
+          $('#target').attr('position', x + " 2.5 " + z);
 
           setInterval(function(){
             var camera = $('#camera').attr('rotation');
@@ -103,17 +111,16 @@
 
             oldY = newY;
 
-            console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
+            // console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
           }, 300);
 
-        }, 1500);
+        }, 1000);
 
         this.el.addEventListener('raycaster-intersected', function(evt) {
           if (this.hoveron !== true) {
             this.emit('hoveron');
             this.hoveron = true;
-            $('#sound')[0].components.sound.playSound();
-            console.log('on');
+            // $('#sound')[0].components.sound.playSound();
           }
         }, true);
         this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
