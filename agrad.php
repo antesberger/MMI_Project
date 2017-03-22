@@ -128,6 +128,14 @@
 
             oldY = newY;
             console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' volume: ' + volume + ' uid: ' + uid);
+            
+            $.ajax({
+              type: "POST",
+              url: "agrad.php",
+              data: "searchq=test",
+              success: function()});
+            }
+
             //console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
           }, 300);
 
@@ -148,7 +156,45 @@
     });
   </script>
 
+  <?php
+    if(isset($_POST['searchq'])){
+      echo $_POST['searchq'];
+    }
 
+    /*$db = mysqli_connect('127.0.0.3', 'db388648_1', 'MMMIinfo', 'db388648_1');
+    if ($db->connect_error) {
+      die('Failed to connect: '.$db->connect_error);
+    } else {
+      echo "success <br>";
+    }
 
+    $xrotation = 10.0;
+    $yrotation = 20.0;
+    $direction = 'l';
+    $time = 1.0;
+    $volume = 1.0;
+    $uid = 'a';
+
+    $query = "INSERT INTO TestExperiments VALUES (
+    NULL,
+    " . $xrotation . ", 
+    " . $yrotation . ",
+    \"" . $direction . "\",
+    " . $time . ",
+    " . $volume . ", 
+    NULL,
+    \"" . $uid . "\")";
+
+    echo ($query);
+    $result = $db->query($query);
+
+    if (!$result) {
+      echo "failINSERT";
+      die('INSERT failed: '.$db->error);
+    } else {
+      echo "successINSERT <br>";
+    }*/
+
+  ?>
 </body>
 </html>
