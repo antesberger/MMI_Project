@@ -3,11 +3,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>A-Frame Video Shader - Basic</title>
-  <!-- <script src="js/build.js"></script> -->
+  <title>Condition A</title>
 
   <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-  <!-- <script src="https://rawgit.com/mayognaise/aframe-video-shader/master/dist/aframe-vid-shader.min.js"></script> -->
   <script src="js/aframe-extras.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
@@ -17,11 +15,13 @@
   <link rel="stylesheet" type="text/css" href="css/common.css"/>
 </head>
 <body>
+
   <a-scene fog="type: linear; color: #000000; far: 30; near: 0" stats>
 
     <!-- assets -->
     <a-assets>
-      <video muted id="video" src="assets/video/360_dog.mp4" playsinline preload="auto"></video>
+      <!-- non-matching sound -->
+      <video muted id="video" src="assets/video/360dog_gradual.mp4.mp4" playsinline preload="auto"></video>
 
       <!-- $("#dog")[0].volume = 0.1 -->
       <audio id="dog" loop="true" src="assets/sounds/dog.mp3"></audio>
@@ -65,73 +65,6 @@
   </div>
 
   <script src="js/common.js"></script>
-  <script type="text/javascript">
-
-    function togglePlayback () {
-      var el = document.getElementById('videoSphere')
-      var material = Object.assign({}, el.getAttribute('material'))
-      material.pause = !material.pause
-      el.setAttribute('material', material)
-    }
-
-    AFRAME.registerComponent('hover-listener', {
-      init: function () {
-        // a = x:0 y:-1
-        // 180 + camera.rotation.y
-
-        //video starts after 15s
-        setTimeout(function(){
-          var videoEntity = document.querySelector('#video');
-          videoEntity.play();
-
-          $("video")[0].muted = false;
-
-          var oldY = 0;
-
-          //create targetObject 180 degree behind camera focus point
-          var alpha = (180 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
-          var x = Math.sin(alpha) * (-3);
-          var z = Math.cos(alpha) * (-3);
-          $('#target').attr('position', x + " 2.5 " + z);
-
-          setInterval(function(){
-            var camera = $('#camera').attr('rotation');
-            var x = camera.x;
-            var newY = camera.y;
-            var volume = Math.floor(($('#video')[0].currentTime)/9);
-            var direction;
-
-            if (newY > oldY) {
-              direction = "left";
-            } else if (newY < oldY) {
-              direction = "right";
-            } else {
-              direction = "same";
-            }
-
-            oldY = newY;
-
-            // console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
-          }, 300);
-
-        }, 1000);
-
-        this.el.addEventListener('raycaster-intersected', function(evt) {
-          if (this.hoveron !== true) {
-            this.emit('hoveron');
-            this.hoveron = true;
-            // $('#sound')[0].components.sound.playSound();
-          }
-        }, true);
-        this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
-          this.emit('hoveroff');
-          this.hoveron = false;
-        }, true);
-      }
-    });
-  </script>
-
-
-
+  <script src="js/analysis.js"></script>
 </body>
 </html>
