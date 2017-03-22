@@ -66,6 +66,19 @@
 
   <script src="js/common.js"></script>
   <script type="text/javascript">
+    //generate user ID
+    //var uuid = uuid.v1();
+    var uid = hexCode();
+
+    function hexCode(){
+      //create Code
+      var letters = '0123456789ABCDEF'.split('');
+      var code = '';
+      for (var i = 0; i < 6; i++ ) {
+        code += letters[Math.round(Math.random() * 15)];
+      }
+      return code;
+    }
 
     function togglePlayback () {
       var el = document.getElementById('videoSphere')
@@ -87,6 +100,7 @@
           $("video")[0].muted = false;
 
           var oldY = 0;
+          var startTime = Date.now();
 
           //create targetObject 180 degree behind camera focus point
           var alpha = (180 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
@@ -100,18 +114,21 @@
             var newY = camera.y;
             var volume = Math.floor(($('#video')[0].currentTime)/9);
             var direction;
+            //to occur the exact time
+            var elapsedTime = Date.now() - startTime;
+            var videoTime = (elapsedTime / 1000).toFixed(3);
 
             if (newY > oldY) {
-              direction = "left";
+              direction = "l"; //left
             } else if (newY < oldY) {
-              direction = "right";
+              direction = "r"; //right
             } else {
-              direction = "same";
+              direction = "s"; //same
             }
 
             oldY = newY;
-
-            console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
+            console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' volume: ' + volume + ' uid: ' + uid);
+            //console.log('x: ' + x + ' y: ' + newY + ' volume: ' + volume + ' direction: ' + direction);
           }, 300);
 
         }, 1000);
