@@ -1,6 +1,7 @@
 //generate user ID
 //var uuid = uuid.v1();
 var uid = hexCode();
+var measuringLoop;
 
 function hexCode(){
   //create Code
@@ -50,7 +51,7 @@ AFRAME.registerComponent('measurements', {
       $('#target').attr('position', x + " 2.5 " + z);
 
       //measure every 300ms
-      setInterval(function(){
+      measuringLoop = setInterval(function(){
         var camera = $('#camera').attr('rotation');
         var x = camera.x;
         var newY = camera.y;
@@ -78,10 +79,12 @@ AFRAME.registerComponent('measurements', {
           type: "POST",
           data: {x: x, y: newY, direction: direction, time: videoTime, volume: volume, uid: uid},
         });
-        console.log('test');
 
         //terminate measuring process
-        
+        if($('#video')[0].currentTime >= $('#video')[0].duration) {
+          clearInterval(measuringLoop);
+        }
+
       }, 300);
 
     }, 1000);
@@ -95,6 +98,9 @@ AFRAME.registerComponent('hover-listener', {
       if (this.hoveron !== true) {
         this.emit('hoveron');
         this.hoveron = true;
+
+        //stop to measure when target object found by participant
+        clearInterval(measuringLoop);
       }
     }, true);
     this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
