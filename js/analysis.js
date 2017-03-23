@@ -1,5 +1,4 @@
 //generate user ID
-//var uuid = uuid.v1();
 var uid = hexCode();
 var measuringLoop;
 
@@ -10,6 +9,7 @@ function hexCode(){
   for (var i = 0; i < 6; i++ ) {
     code += letters[Math.round(Math.random() * 15)];
   }
+
   return code;
 }
 
@@ -34,8 +34,15 @@ function togglePlayback () {
 AFRAME.registerComponent('measurements', {
   init: function () {
 
+    //print uid to screen
+    $('a-scene').append('<a-entity id="uid" text="value:' + uid + '" position="0.6 2.5 -1" scale="1.5 1.5 1.5"></a-entity>')
+
     //video starts after 15s -> 15s training stage
     setTimeout(function(){
+      
+      //remove uid after training stage
+      $('#uid').remove();
+
       var videoEntity = document.querySelector('#video');
       videoEntity.play();
 
@@ -87,7 +94,7 @@ AFRAME.registerComponent('measurements', {
 
       }, 300);
 
-    }, 1000);
+    }, 1000); //shound be 15000
   }
 });
 
