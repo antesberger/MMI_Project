@@ -20,8 +20,8 @@
 
     <!-- assets -->
     <a-assets>
-      <!-- matching sound -->
-      <video muted id="video" src="assets/video/360_tiger_gradual.mp4" playsinline preload="auto"></video>
+      <!-- non-matching sound -->
+      <video muted id="video" src="assets/video/360dog_gradual.mp4.mp4" playsinline preload="auto"></video>
 
       <!-- $("#dog")[0].volume = 0.1 -->
       <audio id="dog" loop="true" src="assets/sounds/dog.mp3"></audio>
@@ -58,6 +58,9 @@
 
     <!-- computer position 180 degree to camera -->
     <a-entity template="src: #targetBox"></a-entity>
+
+    <!-- init measure component -->
+    <a-entity measurements></a-entity>
   </a-scene>
 
   <div class="buttons novr">

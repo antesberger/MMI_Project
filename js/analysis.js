@@ -13,7 +13,7 @@ function hexCode(){
 }
 
 function getVolume(videoTime,videoDuration) {
-  //for 15s training phase  
+  //for 15s training stage  
   var trainingDuration = 15;
   if(videoTime >= trainingDuration) {
     return ((videoTime-trainingDuration) / (videoDuration-trainingDuration)).toFixed(2);
@@ -30,11 +30,10 @@ function togglePlayback () {
   el.setAttribute('material', material)
 }
 
-//to be called on target init
-AFRAME.registerComponent('hover-listener', {
+AFRAME.registerComponent('measurements', {
   init: function () {
 
-    //video starts after 15s
+    //video starts after 15s -> 15s training stage
     setTimeout(function(){
       var videoEntity = document.querySelector('#video');
       videoEntity.play();
@@ -79,11 +78,19 @@ AFRAME.registerComponent('hover-listener', {
           type: "POST",
           data: {x: x, y: newY, direction: direction, time: videoTime, volume: volume, uid: uid},
         });
+        console.log('test');
 
+        //terminate measuring process
+        
       }, 300);
 
     }, 1000);
+  }
+});
 
+//to be called on target init
+AFRAME.registerComponent('hover-listener', {
+  init: function () {
     this.el.addEventListener('raycaster-intersected', function(evt) {
       if (this.hoveron !== true) {
         this.emit('hoveron');
