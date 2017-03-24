@@ -5,7 +5,7 @@
 <body>
   <?php
     
-    if(isset($_POST['x'],$_POST['y'],$_POST['direction'],$_POST['time'],$_POST['volume'],$_POST['uid'])){
+    if(isset($_POST['x'],$_POST['y'],$_POST['direction'],$_POST['time'],$_POST['condition'],$_POST['uid'])){
       //update
       $db = mysqli_connect('127.0.0.3', 'db388648_1', 'MMMIinfo', 'db388648_1');
       if ($db->connect_error) {
@@ -14,11 +14,11 @@
 
       $query = "INSERT INTO TestExperiments VALUES (
       NULL,
+      \"" . $_POST['condition'] . "\",
       " . $_POST['x'] . ", 
       " . $_POST['y'] . ",
       \"" . $_POST['direction'] . "\",
       " . $_POST['time'] . ",
-      " . $_POST['volume'] . ", 
       NULL,
       \"" . $_POST['uid'] . "\")";
 

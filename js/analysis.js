@@ -13,6 +13,12 @@ function hexCode(){
   return code;
 }
 
+function getCondition(){
+  var pathArray = window.location.pathname;
+  var result = pathArray.charAt(pathArray.length-6) + pathArray.charAt(pathArray.length-5);
+  return result.toString();
+}
+
 function getVolume(videoTime,videoDuration) {
   //for 15s training stage  
   var trainingDuration = 15;
@@ -33,10 +39,6 @@ function togglePlayback () {
 
 AFRAME.registerComponent('measurements', {
   init: function () {
-
-    //print uid to screen
-    $('a-scene').append('<a-entity id="uid" text="value:' + uid + '" position="0.6 2.5 -1" scale="1.5 1.5 1.5"></a-entity>')
-
     //video starts after 15s -> 15s training stage
     setTimeout(function(){
       
@@ -67,6 +69,7 @@ AFRAME.registerComponent('measurements', {
         //to occur the exact time
         var elapsedTime = Date.now() - startTime;
         var videoTime = (elapsedTime / 1000).toFixed(3);
+        var condition = getCondition();
 
         //to which direction did the camera turn since measured last time
         if (newY > oldY) {
@@ -84,7 +87,7 @@ AFRAME.registerComponent('measurements', {
         $.ajax({
           url: './server.php',
           type: "POST",
-          data: {x: x, y: newY, direction: direction, time: videoTime, volume: volume, uid: uid},
+          data: {x: x, y: newY, direction: direction, time: videoTime, condition: condition, uid: uid},
         });
 
         //terminate measuring process
@@ -113,6 +116,29 @@ AFRAME.registerComponent('hover-listener', {
     this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
       this.emit('hoveroff');
       this.hoveron = false;
+    }, true);
+  }
+});
+
+AFRAME.registerComponent('init-hover', {
+  init: function () {
+    this.el.addEventListener('raycaster-intersected', function(evt) {
+      if (this.inithoveron !== true) {
+        this.emit('inithoveron');
+        this.inithoveron = true;
+
+        //print uid to screen
+        $('a-scene').append('<a-entity id="uid" text="value:' + uid + '" position="0.6 2.5 -1" scale="1.5 1.5 1.5"></a-entity>')
+
+        $('a-scene').append('<a-entity id="measure" measurements></a-entity>');
+        
+        $('#initLink').remove();
+
+      }
+    }, true);
+    this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
+      this.emit('inithoveroff');
+      this.inithoveron = false;
     }, true);
   }
 });
