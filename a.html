@@ -54,8 +54,9 @@
     <!-- computer position 180 degree to camera -->
     <a-entity template="src: #targetBox"></a-entity>
 
+    <a-entity id="startText" text="value:start; color:black" position="2.80 1.04 -1.83" scale="4 4 4"></a-entity>
     <!-- start scene on hover -->
-    <a-box id="initLink" position="1 1 -2" scale="0.3 0.3 0.3" init-hover>
+    <a-box id="initLink" text="value:test" position="1 1 -1.85" scale="1 0.3 0.01" init-hover>
       <a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="inithoveron"></a-animation>
     <a-animation attribute="scale" dur="300"  from="0.6 0.6 0.6" to="0.3 0.3 0.3" begin="inithoveroff"></a-animation>
     </a-box>

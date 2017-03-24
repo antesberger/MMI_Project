@@ -122,18 +122,19 @@ AFRAME.registerComponent('hover-listener', {
 
 AFRAME.registerComponent('init-hover', {
   init: function () {
+    //print uid to screen
+    $('a-scene').append('<a-entity id="uid" text="value:' + uid + '" position="0.6 2.5 -1" scale="1.5 1.5 1.5"></a-entity>');
+
     this.el.addEventListener('raycaster-intersected', function(evt) {
       if (this.inithoveron !== true) {
         this.emit('inithoveron');
         this.inithoveron = true;
 
-        //print uid to screen
-        $('a-scene').append('<a-entity id="uid" text="value:' + uid + '" position="0.6 2.5 -1" scale="1.5 1.5 1.5"></a-entity>')
-
+        //start scene
         $('a-scene').append('<a-entity id="measure" measurements></a-entity>');
-        
         $('#initLink').remove();
-
+        $('#startText').remove();
+        
       }
     }, true);
     this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
