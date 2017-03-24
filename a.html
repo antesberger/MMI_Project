@@ -54,8 +54,11 @@
     <!-- computer position 180 degree to camera -->
     <a-entity template="src: #targetBox"></a-entity>
 
-    <!-- init measure component -->
-    <a-entity id="measure" measurements></a-entity>
+    <!-- start scene on hover -->
+    <a-box id="initLink" position="1 1 -2" scale="0.3 0.3 0.3" init-hover>
+      <a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="inithoveron"></a-animation>
+    <a-animation attribute="scale" dur="300"  from="0.6 0.6 0.6" to="0.3 0.3 0.3" begin="inithoveroff"></a-animation>
+    </a-box>
   </a-scene>
 
   <div class="buttons novr">
