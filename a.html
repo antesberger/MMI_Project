@@ -53,14 +53,14 @@
 
     <!-- start scene on hover -->
     <a-box id="initLink" text="value:test" position="1 1 -1.85" scale="1 0.3 0.01" init-hover>
-      <a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="inithoveron"></a-animation>
-    <a-animation attribute="scale" dur="300"  from="0.6 0.6 0.6" to="0.3 0.3 0.3" begin="inithoveroff"></a-animation>
+      <a-animation attribute="scale" dur="300"  from="1 0.3 0.01" to="1.5 0.6 0.01" begin="inithoveron"></a-animation>
+      <a-animation attribute="scale" dur="300"  from="1.5 0.6 0.01" to="1 0.3 0.01" begin="inithoveroff"></a-animation>
     </a-box>
   </a-scene>
 
-  <div class="buttons novr">
+  <!-- <div class="buttons novr">
     <a href="javascript:togglePlayback()">toggle playback</a>
-  </div>
+  </div> -->
 
   <script src="js/common.js"></script>
 </body>

@@ -127,6 +127,7 @@ AFRAME.registerComponent('hover-listener', {
 
         //stop to measure when target object found by participant
         clearInterval(measuringLoop);
+        $('video').get(0).pause();
       }
     }, true);
   }
@@ -137,16 +138,21 @@ AFRAME.registerComponent('init-hover', {
     //print uid to screen
     $('a-scene').append('<a-entity id="uid" text="value:' + uid + '" position="0.6 2.5 -1" scale="1.5 1.5 1.5"></a-entity>');
 
+    //init buffering
+    $('video').get(0).load();
+    $('video').get(0).pause();
+
     this.el.addEventListener('raycaster-intersected', function(evt) {
       if (this.inithoveron !== true) {
         this.emit('inithoveron');
         this.inithoveron = true;
 
-        //start scene
-        $('a-scene').append('<a-entity id="measure" measurements></a-entity>');
-        $('#initLink').remove();
-        $('#startText').remove();
-        
+        //start scene if buffered
+        if ($('video').get(0).readyState == 4) {
+          $('a-scene').append('<a-entity id="measure" measurements></a-entity>');
+          $('#initLink').remove();
+          $('#startText').remove();
+        }
       }
     }, true);
     this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
