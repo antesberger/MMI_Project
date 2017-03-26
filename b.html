@@ -48,14 +48,13 @@
     <!-- Room Geometry -->
     <a-videosphere src="#video" material="shader: standard; fog: false;" radius="25" rotation="0 -90 0"></a-videosphere>
 
-    <!-- init instructions-->
+   <!-- init instructions-->
     <a-entity id="startText" text="value:start; color:black" position="2.80 1.04 -1.83" scale="4 4 4"></a-entity>
 
-    
     <!-- start scene on hover -->
-    <a-box id="initLink" text="value:test" position="1 1 -1.85" scale="1 0.3 0.01" init-hover>
-      <a-animation attribute="scale" dur="300"  from="1 0.3 0.01" to="1.5 0.6 0.01" begin="inithoveron"></a-animation>
-      <a-animation attribute="scale" dur="300"  from="1.5 0.6 0.01" to="1 0.3 0.01" begin="inithoveroff"></a-animation>
+    <a-box id="initLink" position="1 1 -1.85" scale="1.2 0.3 0.01" init-hover>
+      <a-animation attribute="scale" dur="300"  from="1.2 0.3 0.01" to="1.8 0.6 0.01" begin="inithoveron"></a-animation>
+      <a-animation attribute="scale" dur="300"  from="1.8 0.6 0.01" to="1.2 0.3 0.01" begin="inithoveroff"></a-animation>
     </a-box>
   </a-scene>
 

@@ -148,10 +148,13 @@ AFRAME.registerComponent('init-hover', {
         this.inithoveron = true;
 
         //start scene if buffered
-        if ($('video').get(0).readyState == 4) {
+        if (false && $('video').get(0).readyState == 4) {
           $('a-scene').append('<a-entity id="measure" measurements></a-entity>');
           $('#initLink').remove();
           $('#startText').remove();
+        } else {
+          $('#startText').get(0).setAttribute('text', 'value:still loading...;color:black;');
+          $('#startText').get(0).setAttribute('position','2.45 1.04 -1.83');
         }
       }
     }, true);
