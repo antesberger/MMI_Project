@@ -21,9 +21,21 @@ function getCondition(){
 
 function getVolume(videoTime,videoDuration) {
   //for 15s training stage  
-  var trainingDuration = 15;
+  var trainingDuration = 1;
   if(videoTime >= trainingDuration) {
-    return ((videoTime-trainingDuration) / (videoDuration-trainingDuration)).toFixed(2);
+    // gradual volume change
+    // return ((videoTime-trainingDuration) / (videoDuration-trainingDuration)).toFixed(2);
+
+    // stepwise volume change every 4s
+    var volumetmp = Math.floor((videoTime-trainingDuration)/4);
+
+    //check experiment termination condition
+    //stop measuring after 20s (4s * 5volume_categories)
+    if (volumetmp = 4 && Math.floor(((videoTime + 0.333)-trainingDuration)/4) > 4) {
+      clearInterval(measuringLoop);
+    }
+    
+    return volumetmp;
   } else {
     return 0;
   }
@@ -69,7 +81,7 @@ AFRAME.registerComponent('measurements', {
         var x = camera.x;
         var newY = camera.y;
         var direction;
-        var volume = 1;
+        var volume = getVolume($('#video')[0].currentTime, $('#video')[0].duration);
         //to occur the exact time
         var elapsedTime = Date.now() - startTime;
         var videoTime = (elapsedTime / 1000).toFixed(3);
@@ -99,9 +111,9 @@ AFRAME.registerComponent('measurements', {
           clearInterval(measuringLoop);
         }
 
-      }, 300);
+      }, 333);
 
-    }, 1000); //shound be 15000
+    }, 1000);
   }
 });
 
@@ -112,7 +124,7 @@ AFRAME.registerComponent('hover-listener', {
       if (this.hoveron !== true) {
         this.emit('hoveron');
         this.hoveron = true;
-        console.log("hoveron")
+
         //stop to measure when target object found by participant
         clearInterval(measuringLoop);
       }
