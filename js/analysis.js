@@ -148,7 +148,7 @@ AFRAME.registerComponent('init-hover', {
         this.inithoveron = true;
 
         //start scene if buffered
-        if (false && $('video').get(0).readyState == 4) {
+        if ($('video').get(0).readyState == 4) {
           $('a-scene').append('<a-entity id="measure" measurements></a-entity>');
           $('#initLink').remove();
           $('#startText').remove();
@@ -161,6 +161,8 @@ AFRAME.registerComponent('init-hover', {
     this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
       this.emit('inithoveroff');
       this.inithoveron = false;
+      $('#startText').get(0).setAttribute('text', 'value:start;color:black;');
+      $('#startText').get(0).setAttribute('position','2.8 1.04 -1.83');
     }, true);
   }
 });
