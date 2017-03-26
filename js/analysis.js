@@ -59,7 +59,6 @@ AFRAME.registerComponent('measurements', {
       //set targetObject to 180 degree behind camera focus point
       var alpha = (180 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
       var x = Math.sin(alpha) * (-3);
-      console.log(alpha + " " + x);
 
       // var z = Math.cos(alpha) * (-3);
       $('#target').attr('position', x + " 0 0");
@@ -70,7 +69,7 @@ AFRAME.registerComponent('measurements', {
         var x = camera.x;
         var newY = camera.y;
         var direction;
-        var volume = getVolume($('#video')[0].currentTime, $('#video')[0].duration);
+        var volume = 1;
         //to occur the exact time
         var elapsedTime = Date.now() - startTime;
         var videoTime = (elapsedTime / 1000).toFixed(3);
@@ -86,13 +85,13 @@ AFRAME.registerComponent('measurements', {
         }
 
         oldY = newY;
-        console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' condition: ' + condition + ' uid: ' + uid);
+        // console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' condition: ' + condition + ' uid: ' + uid);
 
         //send measurements to server.php
         $.ajax({
           url: './server.php',
           type: "POST",
-          data: {x: x, y: newY, direction: direction, time: videoTime, condition: condition, uid: uid},
+          data: {x: x, y: newY, direction: direction, time: videoTime, condition: condition, volume: volume, uid: uid},
         });
 
         //terminate measuring process

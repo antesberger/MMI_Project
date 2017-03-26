@@ -3,31 +3,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>Condition A</title>
+  <title>Condition B</title>
 
   <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/ngokevin/aframe-look-at-component/master/dist/aframe-look-at-component.min.js"></script>
   <script src="js/aframe-extras.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
   <script src="https://rawgit.com/ngokevin/aframe-template-component/master/dist/aframe-template-component.min.js"></script>
   <script src="js/aframe-particle-system-component.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="js/analysis.js"></script>
   <link rel="stylesheet" type="text/css" href="css/common.css"/>
 </head>
 <body>
-
+  
   <a-scene fog="type: linear; color: #000000; far: 30; near: 0" stats>
 
     <!-- assets -->
     <a-assets>
-      <!-- non-matching sound -->
-      <video muted id="video" src="assets/video/360dog_gradual.mp4.mp4" playsinline preload="auto"></video>
-
-      <!-- $("#dog")[0].volume = 0.1 -->
-      <audio id="dog" loop="true" src="assets/sounds/dog.mp3"></audio>
+      <!-- matching sound -->
+      <video muted id="video" src="assets/video/elefants_withsound.mp4" playsinline preload="auto"></video>
 
       <script id="targetBox" type="text/x-nunjucks-template">
-        <a-entity template="src: templates/components/targetBox.template; type: handlebars" data-position="0 2.5 3" data-scale="0.3 0.3 0.3"></a-entity>
+        <a-entity template="src: templates/components/targetBox.template; type: handlebars"></a-entity>
       </script>
 
       <script id="room" type="text/x-nunjucks-template">
@@ -46,21 +45,17 @@
       </a-entity>
     </a-entity>
 
-    <!-- light -->
-    <!-- <a-entity light="color:#fff;intensity:1.5;type:ambient;"></a-entity> -->
+    <!-- Room Geometry -->
+    <a-videosphere src="#video" material="shader: standard; fog: false;" radius="25" rotation="0 -90 0"></a-videosphere>
 
-    <!--Room Geometry-->
-    <!-- <a-entity template="src: #room"></a-entity> -->
-    <a-videosphere id="test" src="#video" material="shader: standard; fog: false;" radius="25" rotation="0 -90 0"></a-videosphere>
+    <!-- init instructions-->
+    <a-entity id="startText" text="value:start; color:black" position="2.80 1.04 -1.83" scale="4 4 4"></a-entity>
 
-    <!-- play sound: $('#sound')[0].components.sound.playSound() -->
-    <a-entity id="sound" sound="src: #dog"></a-entity>
-
-    <!-- computer position 180 degree to camera -->
-    <a-entity template="src: #targetBox"></a-entity>
-
-    <!-- init measure component -->
-    <a-entity measurements></a-entity>
+    <!-- start scene on hover -->
+    <a-box id="initLink" text="value:test" position="1 1 -1.85" scale="1 0.3 0.01" init-hover>
+      <a-animation attribute="scale" dur="300"  from="0.3 0.3 0.3" to="0.6 0.6 0.6" begin="inithoveron"></a-animation>
+    <a-animation attribute="scale" dur="300"  from="0.6 0.6 0.6" to="0.3 0.3 0.3" begin="inithoveroff"></a-animation>
+    </a-box>
   </a-scene>
 
   <div class="buttons novr">
@@ -68,6 +63,5 @@
   </div>
 
   <script src="js/common.js"></script>
-  <script src="js/analysis.js"></script>
 </body>
 </html>
