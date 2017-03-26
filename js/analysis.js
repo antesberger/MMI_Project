@@ -31,7 +31,7 @@ function getVolume(videoTime,videoDuration) {
 
     //check experiment termination condition
     //stop measuring after 20s (4s * 5volume_categories)
-    if (volumetmp = 4 && Math.floor(((videoTime + 0.333)-trainingDuration)/4) > 4) {
+    if (volumetmp == 5 && Math.floor(((videoTime + 0.333)-trainingDuration)/4) > 5) {
       clearInterval(measuringLoop);
     }
     

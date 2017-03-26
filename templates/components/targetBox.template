@@ -11,7 +11,7 @@
 		text="	value:End of experiment!; 
 				color:black;
 				align:center" 
-		position="0 0.2 0.55"
+		position="0 0.2 0.75"
 		scale="1.8 7.4 1">
 	</a-entity>
 
@@ -19,7 +19,7 @@
 		text="	value:Take of your headphones; 
 				color:black;
 				align:center"" 
-		position="0 -0.2 0.55"
+		position="0 -0.2 0.75"
 		scale="1.8 7.4 1">
 	</a-entity>
 </a-box>
