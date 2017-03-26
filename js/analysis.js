@@ -53,11 +53,16 @@ AFRAME.registerComponent('measurements', {
       var oldY = 0;
       var startTime = Date.now();
 
-      //create targetObject 180 degree behind camera focus point
+      //create targetObject
+      $('a-scene').append('<a-entity id="target" template="src: #targetBox"></a-entity>');
+
+      //set targetObject to 180 degree behind camera focus point
       var alpha = (180 + $('#camera').attr('rotation').y) * Math.PI / 180.0;
       var x = Math.sin(alpha) * (-3);
-      var z = Math.cos(alpha) * (-3);
-      $('#target').attr('position', x + " 2.5 " + z);
+      console.log(alpha + " " + x);
+
+      // var z = Math.cos(alpha) * (-3);
+      $('#target').attr('position', x + " 0 0");
 
       //measure every 300ms
       measuringLoop = setInterval(function(){
@@ -81,7 +86,7 @@ AFRAME.registerComponent('measurements', {
         }
 
         oldY = newY;
-        //console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' volume: ' + volume + ' uid: ' + uid);
+        console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' condition: ' + condition + ' uid: ' + uid);
 
         //send measurements to server.php
         $.ajax({
@@ -108,14 +113,10 @@ AFRAME.registerComponent('hover-listener', {
       if (this.hoveron !== true) {
         this.emit('hoveron');
         this.hoveron = true;
-
+        console.log("hoveron")
         //stop to measure when target object found by participant
         clearInterval(measuringLoop);
       }
-    }, true);
-    this.el.addEventListener('raycaster-intersected-cleared', function(evt) {
-      this.emit('hoveroff');
-      this.hoveron = false;
     }, true);
   }
 });
