@@ -20,8 +20,8 @@ function getCondition(){
 }
 
 function getVolume(videoTime,videoDuration) {
-  //for 15s training stage
-  var trainingDuration = 1;
+  //1s until video starts -> 10s until trigger sound starts
+  var trainingDuration = 11;
   if(videoTime >= trainingDuration) {
     // gradual volume change
     // return ((videoTime-trainingDuration) / (videoDuration-trainingDuration)).toFixed(2);
@@ -51,7 +51,7 @@ function togglePlayback () {
 
 AFRAME.registerComponent('measurements', {
   init: function () {
-    //video starts after 15s -> 15s training stage
+    //video starts 1s start button hover
     setTimeout(function(){
 
       //remove uid after training stage
