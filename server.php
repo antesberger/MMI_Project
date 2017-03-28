@@ -4,7 +4,7 @@
 </head>
 <body>
   <?php
-    
+
     if(isset($_POST['x'],$_POST['y'],$_POST['direction'],$_POST['time'],$_POST['condition'],$_POST['volume'],$_POST['uid'])){
 
       $db = mysqli_connect('127.0.0.3', 'db388648_1', 'MMMIinfo', 'db388648_1');
@@ -20,6 +20,8 @@
         $table = "ConditionA";
       } elseif ($_POST['condition'] == "b.") {
         $table = "ConditionB";
+      } elseif ($_POST['condition'] == "t.") {
+        $table = "TestExperiments";
       }
 
       //uid, id, condition, xrot, yrot, direction, time, volume, timestamp
@@ -27,7 +29,7 @@
       \"" . $_POST['uid'] . "\",
       NULL,
       \"" . $_POST['condition'] . "\",
-      " . $_POST['x'] . ", 
+      " . $_POST['x'] . ",
       " . $_POST['y'] . ",
       \"" . $_POST['direction'] . "\",
       " . $_POST['time'] . ",
@@ -39,10 +41,10 @@
 
       if (!$result) {
         die('INSERT failed: '.$db->error);
-      } 
+      }
 
       $db->close();
-    } 
+    }
   ?>
 </body>
 </html>

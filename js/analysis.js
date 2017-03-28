@@ -20,7 +20,7 @@ function getCondition(){
 }
 
 function getVolume(videoTime,videoDuration) {
-  //for 15s training stage  
+  //for 15s training stage
   var trainingDuration = 1;
   if(videoTime >= trainingDuration) {
     // gradual volume change
@@ -34,7 +34,7 @@ function getVolume(videoTime,videoDuration) {
     if (volumetmp == 5 && Math.floor(((videoTime + 0.333)-trainingDuration)/4) > 5) {
       clearInterval(measuringLoop);
     }
-    
+
     return volumetmp;
   } else {
     return 0;
@@ -53,7 +53,7 @@ AFRAME.registerComponent('measurements', {
   init: function () {
     //video starts after 15s -> 15s training stage
     setTimeout(function(){
-      
+
       //remove uid after training stage
       $('#uid').remove();
 
