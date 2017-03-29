@@ -21,19 +21,24 @@ function getCondition(){
 
 function getVolume(videoTime,videoDuration) {
   //1s until video starts -> 10s until trigger sound starts
-  var trainingDuration = 11;
+  var trainingDuration = 10;
   if(videoTime >= trainingDuration) {
     // gradual volume change
     // return ((videoTime-trainingDuration) / (videoDuration-trainingDuration)).toFixed(2);
 
     // stepwise volume change every 4s
-    var volumetmp = Math.floor((videoTime-trainingDuration)/4);
+    var volumetmp = 1 + Math.floor((videoTime-trainingDuration)/4);
 
     //check experiment termination condition
     //stop measuring after 20s (4s * 5volume_categories)
-    if (volumetmp == 5 && Math.floor(((videoTime + 0.333)-trainingDuration)/4) > 5) {
+    // if (volumetmp == 5 && Math.floor(((videoTime + 0.333)-trainingDuration)/4) > 5) {
+    //   clearInterval(measuringLoop);
+    // }
+
+    if (volumetmp == 5 && (1 + Math.floor(((videoTime + 0.333)-trainingDuration)/4)) > 5) {
       clearInterval(measuringLoop);
     }
+    console.log("Video time: " + videoTime + "Volume: " + volumetmp);
 
     return volumetmp;
   } else {
@@ -84,7 +89,8 @@ AFRAME.registerComponent('measurements', {
         var volume = getVolume($('#video')[0].currentTime, $('#video')[0].duration);
         //to occur the exact time
         var elapsedTime = Date.now() - startTime;
-        var videoTime = (elapsedTime / 1000).toFixed(3);
+        //var videoTime = (elapsedTime / 1000).toFixed(3);
+        var videoTime = $('#video')[0].currentTime;
         var condition = getCondition();
 
         //to which direction did the camera turn since measured last time
@@ -98,6 +104,7 @@ AFRAME.registerComponent('measurements', {
 
         oldY = newY;
         // console.log('x: ' + x + ' y: ' + newY + ' direction: ' + direction + ' videoTime: ' + videoTime + ' condition: ' + condition + ' uid: ' + uid);
+        console.log("time: " + videoTime + " v: " + volume);
 
         //send measurements to server.php
         $.ajax({
